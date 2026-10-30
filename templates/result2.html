@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WaterPulse - AI-Based Water Intelligence System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Open Sans', Arial, sans-serif;
+            color: #1E293B;
+            background:
+                radial-gradient(circle at top left,
+                    rgba(14, 165, 233, 0.15),
+                    transparent 35%),
+                radial-gradient(circle at bottom right,
+                    rgba(255, 107, 53, 0.12),
+                    transparent 40%),
+                linear-gradient(135deg,
+                    #FAF7F2,
+                    #F5EFE6,
+                    #FAF8F2);
+        }
+
+        .result-section {
+            padding: 65px 20px;
+        }
+
+        .result-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .page-heading {
+            max-width: 850px;
+            margin: 0 auto 35px;
+            text-align: center;
+        }
+
+        .heading-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 78px;
+            height: 78px;
+            margin-bottom: 18px;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 34px;
+            background: linear-gradient(135deg,
+                    #0EA5E9,
+                    #FF6B35);
+            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.35);
+        }
+
+        .page-heading h1 {
+            margin-bottom: 12px;
+            color: #0369A1;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .page-heading p {
+            margin: 0;
+            color: #475569;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .result-card {
+            padding: 40px;
+            border: 1px solid #EDE8DE;
+            border-top: 6px solid #0EA5E9;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 18px 50px rgba(14, 165, 233, 0.08);
+        }
+
+        .prediction-panel {
+            height: 100%;
+            min-height: 320px;
+            padding: 28px 24px;
+            text-align: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg,
+                    #0284C7,
+                    #0EA5E9);
+            color: #ffffff;
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.28);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prediction-panel i {
+            margin-bottom: 14px;
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .prediction-panel h4 {
+            margin: 0 0 8px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.35rem;
+            line-height: 1.3;
+        }
+
+        .prediction-subtitle {
+            margin: 0 0 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.4;
+            max-width: 280px;
+        }
+
+        .prediction-value {
+            display: inline-block;
+            margin: 0 auto 10px;
+            padding: 12px 22px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.25);
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            word-break: normal;
+            white-space: nowrap;
+        }
+
+        .prediction-class {
+            margin: 0 0 18px;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .confidence-box {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.22);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .chart-card {
+            height: 100%;
+            min-height: 320px;
+            padding: 22px 22px 18px;
+            border: 1px solid #EDE8DE;
+            border-radius: 20px;
+            background: #FCFAF6;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card h4 {
+            margin: 0 0 8px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: none;
+            flex: 1 1 auto;
+            min-height: 280px;
+            height: 300px;
+            margin: 0;
+        }
+
+        .information-card {
+            margin-top: 30px;
+            padding: 24px;
+            border-left: 6px solid #FF6B35;
+            border: 1px solid #EDE8DE;
+            border-left-width: 6px;
+            border-radius: 15px;
+            background: #FCFAF6;
+        }
+
+        .information-card h4 {
+            margin-bottom: 10px;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .information-card p {
+            margin: 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .probability-section {
+            margin-top: 32px;
+            padding: 28px;
+            border-radius: 18px;
+            background: #FCFAF6;
+            border: 1px solid #EDE8DE;
+            box-shadow: 0 8px 22px rgba(14, 165, 233, 0.06);
+        }
+
+        .section-heading {
+            margin-bottom: 22px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .probability-row {
+            margin-bottom: 18px;
+        }
+
+        .probability-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .probability-title {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 7px;
+            color: #1E293B;
+            font-weight: 700;
+        }
+
+        .progress {
+            height: 13px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #E0F2FE;
+        }
+
+        .progress-bar {
+            border-radius: 20px;
+            background: linear-gradient(90deg,
+                    #0EA5E9,
+                    #FF6B35);
+        }
+
+        .lime-card {
+            margin-top: 35px;
+            padding: 30px;
+            border-left: 6px solid #FF6B35;
+            border: 1px solid #EDE8DE;
+            border-left-width: 6px;
+            border-radius: 20px;
+            background: #FCFAF6;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.07);
+        }
+
+        .lime-card h3 {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .lime-description {
+            margin-bottom: 22px;
+            text-align: center;
+            color: #475569;
+        }
+
+        .lime-container {
+            width: 100%;
+            height: 600px;
+            overflow: auto;
+            border: 1px solid #EDE8DE;
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .lime-frame {
+            width: 100%;
+            min-width: 1050px;
+            height: 100%;
+            border: none;
+        }
+
+        .lime-plot-container {
+            width: 100%;
+            min-height: 650px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border: 1px solid #EDE8DE;
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .lime-plot-container>div {
+            min-width: 1000px;
+        }
+
+        .lime-container::-webkit-scrollbar,
+        .lime-plot-container::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .lime-container::-webkit-scrollbar-track,
+        .lime-plot-container::-webkit-scrollbar-track {
+            background: #FAF7F2;
+            border-radius: 10px;
+        }
+
+        .lime-container::-webkit-scrollbar-thumb,
+        .lime-plot-container::-webkit-scrollbar-thumb {
+            background: #0EA5E9;
+            border-radius: 10px;
+        }
+
+        .error-box {
+            padding: 18px;
+            border-left: 5px solid #dc3545;
+            border-radius: 12px;
+            color: #842029;
+            background: #f8d7da;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 35px;
+        }
+
+        .predict-again-btn,
+        .home-btn {
+            min-width: 190px;
+            padding: 13px 28px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .predict-again-btn {
+            color: #ffffff;
+            background: linear-gradient(135deg,
+                    #0EA5E9,
+                    #FF6B35);
+        }
+
+        .predict-again-btn:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg,
+                    #FF6B35,
+                    #0EA5E9);
+        }
+
+        .home-btn {
+            color: #ffffff;
+            background: linear-gradient(135deg,
+                    #1E293B,
+                    #334155);
+        }
+
+        .home-btn:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg,
+                    #0F172A,
+                    #1E293B);
+        }
+
+        @media (max-width: 768px) {
+            .result-section {
+                padding: 40px 10px;
+            }
+
+            .result-card {
+                padding: 24px 14px;
+            }
+
+            .page-heading h1 {
+                font-size: 31px;
+            }
+
+            .prediction-value {
+                font-size: 1.55rem;
+                padding: 10px 16px;
+                white-space: normal;
+            }
+
+            .prediction-class {
+                font-size: 1.05rem;
+            }
+
+            .chart-wrapper {
+                min-height: 240px;
+                height: 260px;
+            }
+
+            .lime-card {
+                padding: 22px 10px;
+            }
+
+            .lime-container {
+                height: 520px;
+            }
+
+            .action-buttons a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>WaterPulse</h1>
+                <!-- <img src="../static/img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home1" class="dropdown-item"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home2" class="dropdown-item"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-chart-line me-2"></i>Graphs</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/graphs1" class="dropdown-item"><i class="fas fa-chart-pie me-2"></i>Prediction</a>
+                            <a href="/graphs2" class="dropdown-item"><i class="fas fa-chart-area me-2"></i>Forecasting</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-book me-2"></i>NoteBook</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/notes1" class="dropdown-item"><i class="fas fa-file-alt me-2"></i>Water Availability Forecasting</a>
+                            <a href="/notes2" class="dropdown-item"><i class="fas fa-file-code me-2"></i>Water Quality Prediction</a>
+                        </div>
+                    </div>
+                    <a href="/logout" class="nav-item nav-link"><i class="fas fa-sign-out-alt me-2"></i>LogOut</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Start -->
+        <div class="carousel-header">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="../static/img/hero_result2.jpg" class="img-fluid w-100"
+                            style="height: 500px; object-fit:cover;" alt="Water Availability Forecasting Results">
+                        <div class="carousel-caption-1"
+                            style="display: flex; align-items: center; justify-content: center;">
+                            <div class="carousel-caption-1-content text-center px-3"
+                                style="max-width: 900px; padding-right: 0; margin: 0 auto;">
+
+
+                                <h1 class="display-2 text-capitalize text-white mb-4 text-center">
+                                    RESULTS
+                                </h1>
+
+                                <p class="mb-5 fs-5 text-white text-center mx-auto" style="max-width: 800px;">
+                                    Support sustainable water management, efficient resource planning,
+                                    and informed decision-making for governments, industries, and communities.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Result Start -->
+    <section class="result-section">
+        <div class="result-container">
+            <div class="page-heading">
+                <div class="heading-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h1>Water Availability Forecast Results</h1>
+                <p>
+                    Location: <strong>{{ input_values.District }}, {{ input_values.State }}</strong> | Start Date:
+                    <strong>{{ input_values.Date }}</strong>
+                </p>
+            </div>
+
+            <!-- Submitted Parameters Accordion -->
+            <div class="accordion mb-4" id="submittedParamsAccordion">
+                <div class="accordion-item rounded-4 border-0 shadow-sm" style="overflow: hidden;">
+                    <h2 class="accordion-header" id="headingParams">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseParams" aria-expanded="false" aria-controls="collapseParams"
+                            style="background-color: #F0F9FF; color: #0369A1;">
+                            <i class="fas fa-list-check me-2"></i> View Submitted Environmental & Quality Inputs
+                        </button>
+                    </h2>
+                    <div id="collapseParams" class="accordion-collapse collapse" aria-labelledby="headingParams"
+                        data-bs-parent="#submittedParamsAccordion">
+                        <div class="accordion-body bg-white">
+                            <div class="row g-3">
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Rainfall</small>
+                                        <span class="fw-bold">{{ input_values.Rainfall_mm }} mm</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Temperature</small>
+                                        <span class="fw-bold">{{ input_values.Temperature_C }} °C</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Humidity</small>
+                                        <span class="fw-bold">{{ input_values.Humidity_pct }} %</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Reservoir Level</small>
+                                        <span class="fw-bold">{{ input_values.Reservoir_Level_pct }} %</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Groundwater Level</small>
+                                        <span class="fw-bold">{{ input_values.Groundwater_Level_m }} m</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">River Flow</small>
+                                        <span class="fw-bold">{{ input_values.River_Flow_m3s }} m³/s</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Water Consumption</small>
+                                        <span class="fw-bold">{{ input_values.Water_Consumption_MLD }} MLD</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Population</small>
+                                        <span class="fw-bold">{{ input_values.Population | int }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Reservoir Inflow</small>
+                                        <span class="fw-bold">{{ input_values.Reservoir_Inflow_MLD }} MLD</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Reservoir Outflow</small>
+                                        <span class="fw-bold">{{ input_values.Reservoir_Outflow_MLD }} MLD</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="p-2 border rounded bg-light">
+                                        <small class="text-muted d-block">Current Availability</small>
+                                        <span class="fw-bold">{{ input_values.Water_Availability_MLD }} MLD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="row g-4 align-items-stretch">
+                    <!-- Left Column: Prediction Panel & Statistics -->
+                    <div class="col-lg-5 d-flex flex-column">
+                        <div class="prediction-panel flex-grow-1">
+                            <i class="fas fa-circle-nodes"></i>
+                            <h4>Day-7 Predicted Availability</h4>
+                            <p class="prediction-subtitle">
+                                This is the model’s 7-day-ahead result — the <strong>last point</strong> on the dashed
+                                forecast line.
+                            </p>
+                            <div class="prediction-value">{{ prediction_value | default(prediction) }}</div>
+                            {% if prediction_class is defined and prediction_class %}
+                            <div class="prediction-class">({{ prediction_class }})</div>
+                            {% endif %}
+                            <div class="confidence-box">
+                                Confidence Score: {{ confidence }}%
+                            </div>
+                        </div>
+
+                        <!-- Statistics Card -->
+                        <div class="information-card mt-4 mb-0">
+                            <h4>7-Day Forecast Path</h4>
+                            <div class="row g-3 mt-2">
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 bg-white text-center shadow-sm">
+                                        <small class="text-muted d-block mb-1">Day 1 (graph start)</small>
+                                        <span class="fw-bold text-success">{{ stats.day1_level |
+                                            default(stats.max_level) }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border rounded-3 bg-white text-center shadow-sm">
+                                        <small class="text-muted d-block mb-1">Day 7 (main result)</small>
+                                        <span class="fw-bold text-primary">{{ stats.day7_level |
+                                            default(stats.min_level) }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="p-3 border rounded-3 bg-white text-center shadow-sm">
+                                        <small class="text-muted d-block mb-1">Average over next 7 days</small>
+                                        <span class="fw-bold text-secondary">{{ stats.most_frequent }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Line Graph -->
+                    <div class="col-lg-7">
+                        <div class="chart-card">
+                            <h4>Historical vs Forecasted Trend</h4>
+                            <p class="text-center text-muted mb-2" style="font-size: 0.9rem;">
+                                Dashed line = next 7 days. The card value is the <strong>final (Day 7)</strong> point on
+                                that line.
+                            </p>
+                            <div class="chart-wrapper">
+                                <canvas id="predictionChart2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7-Day Forecast Table Card -->
+                <div class="card shadow-sm border-0 rounded-4 mt-5 p-4"
+                    style="border-top: 6px solid #0EA5E9 !important; background: #FCFAF6; border: 1px solid #EDE8DE;">
+                    <h4 class="mb-4 text-center fw-bold" style="color: #0369A1;">7-Day Detailed Forecast Table</h4>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Horizon</th>
+                                    <th scope="col">Forecast Date</th>
+                                    <th scope="col">Forecasted Availability (MLD)</th>
+                                    <th scope="col">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in forecast_table %}
+                                <tr {% if loop.last %}class="table-info" {% endif %}>
+                                    <td class="fw-bold">
+                                        Day {{ loop.index }}
+                                        {% if loop.last %}<span class="badge bg-primary ms-1">Main result</span>{% endif
+                                        %}
+                                    </td>
+                                    <td>{{ row.Date }}</td>
+                                    <td class="fw-bold text-primary">{{ "%.2f"|format(row.Predicted_Value|float) }} MLD
+                                    </td>
+                                    <td>
+                                        {% if row.Predicted_Class == 'High' %}
+                                        <span class="badge bg-success px-3 py-2 rounded-pill fs-6"><i
+                                                class="fas fa-circle-arrow-up me-1"></i> High</span>
+                                        {% elif row.Predicted_Class == 'Medium' %}
+                                        <span class="badge bg-secondary text-white px-3 py-2 rounded-pill fs-6"><i
+                                                class="fas fa-circle-minus me-1"></i> Medium</span>
+                                        {% else %}
+                                        <span class="badge bg-danger px-3 py-2 rounded-pill fs-6"><i
+                                                class="fas fa-circle-arrow-down me-1"></i> Low</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- LIME Card -->
+                <div class="lime-card">
+                    <h3>LIME Explanation (Day 7 Prediction)</h3>
+                    <p class="lime-description">
+                        Local feature contributions explaining why the AI predicted the water availability as <strong>{{
+                            prediction }}</strong>. Green bars indicate positive contributions, and red bars indicate
+                        negative contributions.
+                    </p>
+                    {% if lime_error %}
+                    <div class="error-box">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        LIME Error: {{ lime_error }}
+                    </div>
+                    {% else %}
+                    <div class="lime-plot-container">
+                        {{ lime_plot | safe }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Recommendations Card -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm border-0 rounded-4"
+                            style="border-top: 6px solid #FF6B35 !important; background: #FCFAF6; border: 1px solid #EDE8DE;">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="bg-secondary bg-opacity-10 text-secondary p-3 rounded-circle me-3">
+                                        <i class="fas fa-lightbulb fa-2x"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="card-title fw-bold mb-0" style="color: #0369A1;">Water Conservation &
+                                            Resource Recommendations</h3>
+                                        <p class="text-muted mb-0">Actionable advice generated based on the availability
+                                            forecast profile</p>
+                                    </div>
+                                </div>
+
+                                {% if recommendations_warning %}
+                                <div class="alert alert-warning mb-4" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i> {{ recommendations_warning }}
+                                </div>
+                                {% endif %}
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <h5 class="fw-bold mb-3 text-secondary"><i
+                                                class="fas fa-check-circle text-success me-2"></i>Key Recommendations
+                                        </h5>
+                                        <ul class="list-group list-group-flush">
+                                            {% for rec in recommendations %}
+                                            <li
+                                                class="list-group-item d-flex align-items-start border-0 bg-transparent px-0 py-2">
+                                                <i class="fas fa-caret-right text-primary mt-1 me-2"></i>
+                                                <span>{{ rec }}</span>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5 class="fw-bold mb-3 text-secondary"><i
+                                                class="fas fa-info-circle text-primary me-2"></i>Practical Suggestions
+                                        </h5>
+                                        <ul class="list-group list-group-flush">
+                                            {% for sug in suggestions %}
+                                            <li
+                                                class="list-group-item d-flex align-items-start border-0 bg-transparent px-0 py-2">
+                                                <i class="fas fa-caret-right text-primary mt-1 me-2"></i>
+                                                <span>{{ sug }}</span>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/home2" class="predict-again-btn">
+                        <i class="fas fa-rotate-left me-2"></i>Forecast Again
+                    </a>
+                    <a href="/home1" class="home-btn">
+                        <i class="fas fa-flask me-2"></i>Go to Quality Prediction
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script to render Chart.js actual vs forecast line graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById("predictionChart2");
+            if (!ctx) {
+                console.log("Canvas for availability chart not found");
+                return;
+            }
+
+            const chartData = {{ chart_data | tojson
+        }};
+        const labels = chartData.labels;
+        const actual = chartData.actual;
+        const forecast = chartData.forecast;
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Actual Past 7 Days',
+                        data: actual,
+                        borderColor: '#1E293B',
+                        backgroundColor: 'rgba(30, 41, 59, 0.12)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        spanGaps: false,
+                        tension: 0.25
+                    },
+                    {
+                        label: 'Forecasted Next 7 Days',
+                        data: forecast,
+                        borderColor: '#FF6B35',
+                        backgroundColor: 'rgba(255, 107, 53, 0.15)',
+                        borderWidth: 3,
+                        borderDash: [6, 4],
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        spanGaps: false,
+                        tension: 0.25
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 4,
+                        right: 8,
+                        bottom: 4,
+                        left: 4
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'center',
+                        labels: {
+                            boxWidth: 18,
+                            boxHeight: 12,
+                            padding: 18,
+                            usePointStyle: false
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: 'Water Availability (MLD)',
+                            font: {
+                                weight: 'bold'
+                            },
+                            padding: { top: 0, bottom: 8 }
+                        },
+                        ticks: {
+                            padding: 6
+                        },
+                        grid: {
+                            color: 'rgba(14, 165, 233, 0.12)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date',
+                            font: {
+                                weight: 'bold'
+                            },
+                            padding: { top: 8, bottom: 0 }
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45,
+                            autoSkip: true,
+                            maxTicksLimit: 8,
+                            padding: 4
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        });
+    </script>
+    <!-- Result End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="#" class="border-bottom text-white"><i
+                                class="fas fa-copyright text-light me-2"></i>WaterPulse</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+
+                    Designed By <a class="border-bottom text-white" href="#">AI-Based Water Intelligence System</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/lib/wow/wow.min.js"></script>
+    <script src="../static/lib/easing/easing.min.js"></script>
+    <script src="../static/lib/waypoints/waypoints.min.js"></script>
+    <script src="../static/lib/counterup/counterup.min.js"></script>
+    <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

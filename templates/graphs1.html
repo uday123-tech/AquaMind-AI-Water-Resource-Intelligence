@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WaterPulse - AI-Based Water Intelligence System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>WaterPulse</h1>
+                <!-- <img src="../static/img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home1" class="dropdown-item"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home2" class="dropdown-item"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fas fa-chart-line me-2"></i>Graphs</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/graphs1" class="dropdown-item"><i class="fas fa-chart-pie me-2"></i>Prediction</a>
+                            <a href="/graphs2" class="dropdown-item"><i class="fas fa-chart-area me-2"></i>Forecasting</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-book me-2"></i>NoteBook</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/notes1" class="dropdown-item"><i class="fas fa-file-alt me-2"></i>Water Availability Forecasting</a>
+                            <a href="/notes2" class="dropdown-item"><i class="fas fa-file-code me-2"></i>Water Quality Prediction</a>
+                        </div>
+                    </div>
+                    <a href="/logout" class="nav-item nav-link"><i class="fas fa-sign-out-alt me-2"></i>LogOut</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Start -->
+        <div class="carousel-header">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active" style="min-height: 480px; position: relative;">
+                        <img src="../static/img/hero_graphs1.jpg" class="img-fluid w-100"
+                            style="height: 480px; object-fit: cover;" alt="Water Quality Prediction Analytics Hero Banner">
+                        <div class="carousel-caption d-flex align-items-center justify-content-center"
+                             style="position: absolute; inset: 0; padding-top: 140px; padding-bottom: 40px; background: linear-gradient(180deg, rgba(8, 18, 36, 0.88) 0%, rgba(8, 18, 36, 0.52) 45%, rgba(8, 18, 36, 0.78) 100%);">
+                            <div class="text-center text-white px-3" style="max-width: 950px; text-shadow: 0 2px 12px rgba(0,0,0,0.85);">
+                                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3"
+                                     style="background: rgba(14, 165, 233, 0.35); border: 1px solid rgba(14, 165, 233, 0.6); color: #ffffff; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
+                                    <i class="fas fa-chart-pie"></i> WATER QUALITY PREDICTION ANALYTICS
+                                </div>
+                                <h1 class="display-5 text-white fw-bold mb-3" style="letter-spacing: -0.5px;">Prediction Graphs & Diagnostics</h1>
+                                <p class="text-white mb-0 mx-auto" style="font-size: 1.1rem; line-height: 1.6; max-width: 820px;">
+                                    Explore interactive model evaluation matrices, feature importance rankings, confusion matrices, and distribution analytics.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Graph Page Start -->
+    <div class="container-fluid py-5" id="graphs" style="background: linear-gradient(180deg, #FAF7F2 0%, #F5EFE6 100%); min-height: 85vh;">
+        <div class="container">
+
+            <!-- Dashboard Toolbar & Section Intro -->
+            <div class="pb-3 mb-4 border-bottom" style="border-color: #EDE8DE !important;">
+                <h3 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+                    <i class="fas fa-chart-line text-primary"></i> Performance & Model Diagnostics
+                </h3>
+                <p class="text-muted small mb-0">
+                    Select or click any graph card to inspect high-resolution outputs in full-screen mode.
+                </p>
+            </div>
+
+            <style>
+                /* Graph Card Modern Styling */
+                .graph-card-wrapper {
+                    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                .graph-card-wrapper:hover {
+                    transform: translateY(-6px);
+                }
+
+                .graph-card {
+                    background: #FFFFFF;
+                    border: 1px solid #EDE8DE;
+                    border-radius: 16px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+                    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
+                .graph-card-wrapper:hover .graph-card {
+                    border-color: #0EA5E9;
+                    box-shadow: 0 16px 32px rgba(14, 165, 233, 0.16);
+                }
+
+                .graph-card-header {
+                    padding: 16px 20px 12px 20px;
+                    background: #FFFFFF;
+                    border-bottom: 1px solid #FAF7F2;
+                }
+
+                .graph-badge {
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    display: inline-flex;
+                    align-items: center;
+                }
+
+                .badge-cyan {
+                    background: rgba(14, 165, 233, 0.12);
+                    color: #0284c7;
+                }
+
+                .badge-blue {
+                    background: rgba(59, 130, 246, 0.12);
+                    color: #1d4ed8;
+                }
+
+                .badge-emerald {
+                    background: rgba(16, 185, 129, 0.12);
+                    color: #047857;
+                }
+
+                .badge-purple {
+                    background: rgba(139, 92, 246, 0.12);
+                    color: #6d28d9;
+                }
+
+                .badge-amber {
+                    background: rgba(245, 158, 11, 0.12);
+                    color: #b45309;
+                }
+
+                .graph-title {
+                    font-size: 1.12rem;
+                    font-weight: 700;
+                    color: #1E293B;
+                    margin-top: 8px;
+                    margin-bottom: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .graph-img-box {
+                    position: relative;
+                    height: 250px;
+                    background: #F8FAFC;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 14px;
+                    cursor: pointer;
+                    overflow: hidden;
+                }
+
+                .graph-img-box img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                .graph-card-wrapper:hover .graph-img-box img {
+                    transform: scale(1.04);
+                }
+
+                /* Hover Fullscreen Overlay */
+                .graph-img-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: rgba(15, 23, 42, 0.45);
+                    backdrop-filter: blur(2px);
+                    opacity: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    transition: opacity 0.3s ease;
+                    z-index: 2;
+                }
+
+                .graph-card-wrapper:hover .graph-img-overlay {
+                    opacity: 1;
+                }
+
+                .btn-fullscreen-trigger {
+                    background: #FFFFFF;
+                    color: #0F172A;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                    padding: 8px 16px;
+                    border-radius: 30px;
+                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    transform: translateY(6px);
+                    transition: transform 0.3s ease, background 0.2s ease, color 0.2s ease;
+                }
+
+                .graph-card-wrapper:hover .btn-fullscreen-trigger {
+                    transform: translateY(0);
+                }
+
+                .btn-fullscreen-trigger:hover {
+                    background: #FF6B35;
+                    color: #FFFFFF;
+                }
+
+                .graph-card-body {
+                    padding: 16px 20px;
+                    background: #FFFFFF;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border-top: 1px solid #FAF7F2;
+                }
+
+                .graph-desc {
+                    font-size: 0.90rem;
+                    color: #475569;
+                    line-height: 1.45;
+                    margin-bottom: 12px;
+                }
+
+                .graph-card-footer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-top: 10px;
+                    border-top: 1px dashed #EDE8DE;
+                }
+
+                .graph-action-link {
+                    color: #0EA5E9;
+                    font-weight: 600;
+                    font-size: 0.82rem;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    cursor: pointer;
+                    transition: color 0.2s ease;
+                }
+
+                .graph-action-link:hover {
+                    color: #FF6B35;
+                    text-decoration: underline;
+                }
+
+                /* Fullscreen Lightbox Modal */
+                .fs-lightbox-overlay {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(10, 15, 29, 0.92);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    z-index: 99999;
+                    display: flex;
+                    flex-direction: column;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+                }
+
+                .fs-lightbox-overlay.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .fs-lightbox-header {
+                    padding: 16px 28px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    color: #FFFFFF;
+                }
+
+                .fs-lightbox-title-box h3 {
+                    color: #FFFFFF;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    margin: 0;
+                }
+
+                .fs-lightbox-title-box p {
+                    color: #94A3B8;
+                    font-size: 0.85rem;
+                    margin: 0;
+                }
+
+                .fs-lightbox-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .fs-lightbox-btn {
+                    background: rgba(255, 255, 255, 0.12);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    color: #FFFFFF;
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    font-size: 1.1rem;
+                    transition: all 0.2s ease;
+                }
+
+                .fs-lightbox-btn:hover {
+                    background: #0EA5E9;
+                    border-color: #0EA5E9;
+                    color: #FFFFFF;
+                    transform: scale(1.08);
+                }
+
+                .fs-lightbox-btn.btn-close-fs {
+                    background: rgba(239, 68, 68, 0.2);
+                    border-color: rgba(239, 68, 68, 0.4);
+                    color: #FCA5A5;
+                }
+
+                .fs-lightbox-btn.btn-close-fs:hover {
+                    background: #EF4444;
+                    border-color: #EF4444;
+                    color: #FFFFFF;
+                }
+
+                .fs-lightbox-body {
+                    flex-grow: 1;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                    overflow: hidden;
+                }
+
+                .fs-lightbox-img-wrapper {
+                    max-width: 92vw;
+                    max-height: 75vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                }
+
+                .fs-lightbox-img {
+                    max-width: 90vw;
+                    max-height: 75vh;
+                    object-fit: contain;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+                    background: #FFFFFF;
+                    padding: 12px;
+                    transform: scale(0.96);
+                    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                .fs-lightbox-overlay.active .fs-lightbox-img {
+                    transform: scale(1);
+                }
+
+                .fs-nav-arrow {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 52px;
+                    height: 52px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.12);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    color: #FFFFFF;
+                    font-size: 1.4rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    z-index: 10;
+                }
+
+                .fs-nav-arrow:hover {
+                    background: #FF6B35;
+                    border-color: #FF6B35;
+                    transform: translateY(-50%) scale(1.1);
+                }
+
+                .fs-nav-arrow.prev {
+                    left: 24px;
+                }
+
+                .fs-nav-arrow.next {
+                    right: 24px;
+                }
+
+                .fs-lightbox-footer {
+                    padding: 14px 28px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: #94A3B8;
+                    font-size: 0.9rem;
+                }
+
+                .fs-lightbox-caption {
+                    color: #E2E8F0;
+                    font-weight: 500;
+                }
+
+                .fs-lightbox-hint {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    font-size: 0.8rem;
+                }
+            </style>
+
+            <!-- Graph Grid: 3 CARDS PER ROW on Large Screens (col-lg-4) -->
+            <div class="row g-4 justify-content-center">
+
+                <!-- Card 1: Confusion Matrix -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-cyan"><i class="fas fa-th me-1"></i> Confusion Matrix</span>
+                                    <span class="text-muted small fw-bold">#01</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Confusion Matrix</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(0)">
+                                <img src="../static/img/predict/graph1.png" alt="Confusion Matrix">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Evaluates class-level classification accuracy and prediction distributions across water quality categories.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-check-circle text-success me-1"></i>Classification Matrix</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(0)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Accuracy -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-blue"><i class="fas fa-bullseye me-1"></i> Accuracy</span>
+                                    <span class="text-muted small fw-bold">#02</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Accuracy</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(1)">
+                                <img src="../static/img/predict/graph2.png" alt="Accuracy">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Displays overall model classification accuracy across training and validation testing sets.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-trophy text-warning me-1"></i>Model Accuracy Benchmark</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(1)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Precision -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-emerald"><i class="fas fa-crosshairs me-1"></i> Precision</span>
+                                    <span class="text-muted small fw-bold">#03</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Precision</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(2)">
+                                <img src="../static/img/predict/graph3.png" alt="Precision">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Quantifies precision across water quality categories to minimize false positive classifications.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-star text-primary me-1"></i>Precision Metrics</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(2)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Recall -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-purple"><i class="fas fa-filter me-1"></i> Recall</span>
+                                    <span class="text-muted small fw-bold">#04</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Recall</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(3)">
+                                <img src="../static/img/predict/graph4.png" alt="Recall">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Assesses recall sensitivity to capture all actual positive water quality instances effectively.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-chart-line text-info me-1"></i>Sensitivity & True Positive Rate</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(3)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: F1-Score -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-amber"><i class="fas fa-balance-scale me-1"></i> F1-Score</span>
+                                    <span class="text-muted small fw-bold">#05</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>F1-Score</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(4)">
+                                <img src="../static/img/predict/graph5.png" alt="F1-Score">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Calculates harmonic mean of precision and recall to evaluate balanced predictive robustness.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-database text-secondary me-1"></i>Harmonic Mean Balance</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(4)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: SHAP -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-cyan"><i class="fas fa-network-wired me-1"></i> SHAP</span>
+                                    <span class="text-muted small fw-bold">#06</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>SHAP</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(5)">
+                                <img src="../static/img/predict/graph6.png" alt="SHAP">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Explains individual parameter impact and feature attributions on model predictions using SHAP values.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-brain text-primary me-1"></i>Model Interpretability</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(5)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Corelation matrix -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-blue"><i class="fas fa-project-diagram me-1"></i> Correlation Matrix</span>
+                                    <span class="text-muted small fw-bold">#07</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Corelation matrix</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(6)">
+                                <img src="../static/img/predict/graph7.png" alt="Corelation matrix">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Displays pairwise correlation coefficients between chemical, biological, and physical water parameters.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-table-cells text-info me-1"></i>Feature Correlation Map</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(6)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Water quality distribution -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="graph-card-wrapper h-100">
+                        <div class="graph-card">
+                            <div class="graph-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="graph-badge badge-emerald"><i class="fas fa-chart-pie me-1"></i> Distribution</span>
+                                    <span class="text-muted small fw-bold">#08</span>
+                                </div>
+                                <h5 class="graph-title">
+                                    <span>Water quality distribution</span>
+                                </h5>
+                            </div>
+                            <div class="graph-img-box" onclick="openFullscreen(7)">
+                                <img src="../static/img/predict/graph8.png" alt="Water quality distribution">
+                                <div class="graph-img-overlay">
+                                    <span class="btn-fullscreen-trigger">
+                                        <i class="fas fa-expand-arrows-alt"></i> Full Screen View
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="graph-card-body">
+                                <p class="graph-desc">
+                                    Visualizes the spread and class sample counts across all categorized water quality levels.
+                                </p>
+                                <div class="graph-card-footer">
+                                    <span class="text-muted small"><i class="fas fa-database text-secondary me-1"></i>Dataset Category Proportions</span>
+                                    <a class="graph-action-link" onclick="openFullscreen(7)">
+                                        <span>Expand</span> <i class="fas fa-arrow-up-right-from-square small"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>    
+    <!-- graph page end -->
+
+    <!-- Fullscreen Lightbox Modal Element -->
+    <div id="fsLightbox" class="fs-lightbox-overlay" onclick="handleLightboxBackdrop(event)">
+        <!-- Header -->
+        <div class="fs-lightbox-header">
+            <div class="fs-lightbox-title-box">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span id="fsBadge" class="graph-badge badge-cyan">Matrix</span>
+                    <span id="fsCounter" class="text-muted small">Graph 1 of 8</span>
+                </div>
+                <h3 id="fsTitle">Graph Title</h3>
+            </div>
+            <div class="fs-lightbox-controls">
+                <button class="fs-lightbox-btn" title="Previous Graph (Left Arrow)" onclick="navigateFs(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="fs-lightbox-btn" title="Next Graph (Right Arrow)" onclick="navigateFs(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button class="fs-lightbox-btn btn-close-fs" title="Close Fullscreen (Esc)" onclick="closeFullscreen()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Body with Image & Navigation -->
+        <div class="fs-lightbox-body">
+            <button class="fs-nav-arrow prev" title="Previous" onclick="navigateFs(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="fs-lightbox-img-wrapper">
+                <img id="fsImage" class="fs-lightbox-img" src="" alt="Full Screen Graph">
+            </div>
+
+            <button class="fs-nav-arrow next" title="Next" onclick="navigateFs(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Footer Caption -->
+        <div class="fs-lightbox-footer">
+            <div id="fsCaption" class="fs-lightbox-caption">
+                One line description of the graph.
+            </div>
+            <div class="fs-lightbox-hint d-none d-md-flex">
+                <span><kbd style="background: rgba(255,255,255,0.15); color: #fff; padding: 2px 6px; border-radius: 4px;">ESC</kbd> Close</span>
+                <span><kbd style="background: rgba(255,255,255,0.15); color: #fff; padding: 2px 6px; border-radius: 4px;">&larr;</kbd> <kbd style="background: rgba(255,255,255,0.15); color: #fff; padding: 2px 6px; border-radius: 4px;">&rarr;</kbd> Navigate</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Interactive Script -->
+    <script>
+        const graphData = [
+            {
+                title: "Confusion Matrix",
+                badge: "Confusion Matrix",
+                badgeClass: "badge-cyan",
+                desc: "Evaluates class-level classification accuracy and prediction distributions across water quality categories.",
+                src: "../static/img/predict/graph1.png"
+            },
+            {
+                title: "Accuracy",
+                badge: "Accuracy",
+                badgeClass: "badge-blue",
+                desc: "Displays overall model classification accuracy across training and validation testing sets.",
+                src: "../static/img/predict/graph2.png"
+            },
+            {
+                title: "Precision",
+                badge: "Precision",
+                badgeClass: "badge-emerald",
+                desc: "Quantifies precision across water quality categories to minimize false positive classifications.",
+                src: "../static/img/predict/graph3.png"
+            },
+            {
+                title: "Recall",
+                badge: "Recall",
+                badgeClass: "badge-purple",
+                desc: "Assesses recall sensitivity to capture all actual positive water quality instances effectively.",
+                src: "../static/img/predict/graph4.png"
+            },
+            {
+                title: "F1-Score",
+                badge: "F1-Score",
+                badgeClass: "badge-amber",
+                desc: "Calculates harmonic mean of precision and recall to evaluate balanced predictive robustness.",
+                src: "../static/img/predict/graph5.png"
+            },
+            {
+                title: "SHAP",
+                badge: "SHAP",
+                badgeClass: "badge-cyan",
+                desc: "Explains individual parameter impact and feature attributions on model predictions using SHAP values.",
+                src: "../static/img/predict/graph6.png"
+            },
+            {
+                title: "Corelation matrix",
+                badge: "Correlation Matrix",
+                badgeClass: "badge-blue",
+                desc: "Displays pairwise correlation coefficients between chemical, biological, and physical water parameters.",
+                src: "../static/img/predict/graph7.png"
+            },
+            {
+                title: "Water quality distribution",
+                badge: "Distribution",
+                badgeClass: "badge-emerald",
+                desc: "Visualizes the spread and class sample counts across all categorized water quality levels.",
+                src: "../static/img/predict/graph8.png"
+            }
+        ];
+
+        let currentGraphIdx = 0;
+        const lightbox = document.getElementById('fsLightbox');
+        const fsTitle = document.getElementById('fsTitle');
+        const fsBadge = document.getElementById('fsBadge');
+        const fsCounter = document.getElementById('fsCounter');
+        const fsImage = document.getElementById('fsImage');
+        const fsCaption = document.getElementById('fsCaption');
+
+        function openFullscreen(index) {
+            currentGraphIdx = index;
+            updateFullscreenContent();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFullscreen() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateFullscreenContent() {
+            const data = graphData[currentGraphIdx];
+            fsTitle.innerText = data.title;
+            fsBadge.innerText = data.badge;
+            fsBadge.className = "graph-badge " + data.badgeClass;
+            fsCounter.innerText = `Graph ${currentGraphIdx + 1} of ${graphData.length}`;
+            fsImage.src = data.src;
+            fsImage.alt = data.title;
+            fsCaption.innerText = data.desc;
+        }
+
+        function navigateFs(direction) {
+            currentGraphIdx = (currentGraphIdx + direction + graphData.length) % graphData.length;
+            updateFullscreenContent();
+        }
+
+        function handleLightboxBackdrop(e) {
+            if (e.target === lightbox || e.target.classList.contains('fs-lightbox-body')) {
+                closeFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            } else if (e.key === 'ArrowRight') {
+                navigateFs(1);
+            } else if (e.key === 'ArrowLeft') {
+                navigateFs(-1);
+            }
+        });
+    </script>
+
+            <!-- Copyright Start -->
+            <div class="container-fluid copyright py-4">
+                <div class="container">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6 text-center text-md-start mb-md-0">
+                            <span class="text-body"><a href="#" class="border-bottom text-white"><i
+                                        class="fas fa-copyright text-light me-2"></i>WaterPulse</a>, All
+                                right
+                                reserved.</span>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end text-body">
+
+                            Designed By <a class="border-bottom text-white" href="#">AI-Based Water
+                                Intelligence System</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright End -->
+
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i
+                    class="fa fa-arrow-up"></i></a>
+
+
+            <!-- JavaScript Libraries -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../static/lib/wow/wow.min.js"></script>
+            <script src="../static/lib/easing/easing.min.js"></script>
+            <script src="../static/lib/waypoints/waypoints.min.js"></script>
+            <script src="../static/lib/counterup/counterup.min.js"></script>
+            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+            <!-- Template Javascript -->
+            <script src="../static/js/main.js"></script>
+</body>
+
+</html>

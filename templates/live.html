@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WaterPulse - Live Data Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: #F6FAFB;
+            color: #1E293B;
+        }
+
+        .live-shell {
+            padding: 40px 20px 70px;
+        }
+
+        .live-wrap {
+            width: 100%;
+            max-width: 1220px;
+            margin: auto;
+        }
+
+        .live-hero {
+            min-height: 300px;
+            padding: 58px 36px 38px;
+            color: #fff;
+            background:
+                linear-gradient(90deg, rgba(7, 35, 52, .90), rgba(7, 35, 52, .55)),
+                url("../static/img/hero_graphs2.jpg") center/cover no-repeat;
+        }
+
+        .live-hero h1 {
+            max-width: 760px;
+            margin-bottom: 14px;
+            font-size: 44px;
+            font-weight: 800;
+        }
+
+        .live-hero p {
+            max-width: 780px;
+            margin: 0;
+            color: rgba(255, 255, 255, .88);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .panel {
+            padding: 28px;
+            border: 1px solid #DFE8EA;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 14px 35px rgba(15, 23, 42, .06);
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            color: #0F766E;
+            font-weight: 800;
+        }
+
+        .form-label {
+            color: #1E293B;
+            font-weight: 700;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 46px;
+            border-radius: 8px;
+        }
+
+        .metric {
+            height: 100%;
+            padding: 18px;
+            border: 1px solid #E2E8F0;
+            border-left: 5px solid #0EA5E9;
+            border-radius: 8px;
+            background: #F8FCFD;
+        }
+
+        .metric small {
+            display: block;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .metric strong {
+            display: block;
+            margin-top: 6px;
+            color: #0F172A;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .result-tile {
+            height: 100%;
+            padding: 24px;
+            border: 1px solid #DCE8E5;
+            border-radius: 8px;
+            background: #FFFFFF;
+        }
+
+        .result-value {
+            color: #0F766E;
+            font-size: 34px;
+            font-weight: 800;
+        }
+
+        .alert-soft {
+            border-left: 5px solid #F97316;
+            background: #FFF7ED;
+            color: #7C2D12;
+        }
+
+        .btn-live {
+            min-height: 48px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            .live-shell {
+                padding: 88px 12px 40px;
+            }
+
+            .live-hero {
+                padding: 38px 20px;
+            }
+
+            .live-hero h1 {
+                font-size: 31px;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>WaterPulse</h1>
+                <!-- <img src="../static/img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home1" class="dropdown-item"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home2" class="dropdown-item"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-chart-line me-2"></i>Graphs</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/graphs1" class="dropdown-item"><i class="fas fa-chart-pie me-2"></i>Prediction</a>
+                            <a href="/graphs2" class="dropdown-item"><i class="fas fa-chart-area me-2"></i>Forecasting</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-book me-2"></i>NoteBook</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/notes1" class="dropdown-item"><i class="fas fa-file-alt me-2"></i>Water Availability Forecasting</a>
+                            <a href="/notes2" class="dropdown-item"><i class="fas fa-file-code me-2"></i>Water Quality Prediction</a>
+                        </div>
+                    </div>
+                    <a href="/logout" class="nav-item nav-link"><i class="fas fa-sign-out-alt me-2"></i>LogOut</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Start -->
+        <div class="carousel-header">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active" style="min-height: 520px; position: relative;">
+                        <img src="../static/img/hero_graphs2.jpg" class="img-fluid w-100"
+                            style="height: 520px; object-fit: cover;" alt="Live Water Intelligence Dashboard">
+                        <div class="carousel-caption-1" style="min-height: 520px; padding-top: 140px; padding-bottom: 50px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(8, 18, 36, 0.88) 0%, rgba(8, 18, 36, 0.52) 45%, rgba(8, 18, 36, 0.85) 100%);">
+                            <div class="carousel-caption-1-content text-center px-3" style="max-width: 900px; padding-right: 0; margin: 0 auto;">
+                                <h4 class="text-white text-uppercase fw-bold mb-3" style="letter-spacing: 1px;">
+                                    Live Water Intelligence
+                                </h4>
+
+                                <h1 class="display-4 fw-bold text-capitalize text-white mb-3 text-center" style="line-height: 1.25;">
+                                    Live Water Intelligence Dashboard
+                                </h1>
+
+                                <p class="mb-4 fs-5 text-white text-opacity-90 text-center mx-auto" style="max-width: 800px;">
+                                    Fetch live Open-Meteo weather for the selected district, combine it with the trained model feature inputs, and run water quality prediction plus 7-day availability forecasting from one dashboard.
+                                </p>
+
+                                <div class="carousel-caption-1-content-btn d-flex justify-content-center">
+                                    <a href="#liveForm" class="btn btn-primary py-3 px-5 shadow rounded-pill">
+                                        <i class="fa fa-arrow-right me-2"></i>Configure Live Feed
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <main class="live-shell">
+        <div class="live-wrap">
+
+            {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <section class="panel mb-4">
+                <h3 class="section-title"><i class="fas fa-location-crosshairs me-2"></i>Live Feed Setup</h3>
+                <form action="/live/run" method="POST" id="liveForm">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="State">State</label>
+                            <select class="form-select" id="State" name="State" required>
+                                <option value="">Select State</option>
+                                {% for state in district_map.keys() %}
+                                <option value="{{ state }}" {% if selected_state == state %}selected{% endif %}>{{ state }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="District">District</label>
+                            <select class="form-select" id="District" name="District" required>
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="Date">Forecast Date</label>
+                            <input class="form-control" type="date" id="Date" name="Date" value="{{ values.Date if values else '' }}">
+                        </div>
+                    </div>
+
+                    <div class="alert alert-soft mt-4 mb-0">
+                        Temperature and humidity are the current Open-Meteo reading for the selected coordinates.
+                        Rainfall is the past 24 hours at that location, because the current-hour amount is often 0 mm.
+                        Hydrology and lab fields are loaded from that district's own records. Tick the box below only
+                        if you want to type those numbers yourself.
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="manual_override" name="manual_override" value="1"
+                            {% if manual_override %}checked{% endif %}>
+                        <label class="form-check-label" for="manual_override">
+                            Use the numbers I type instead of this district's records
+                        </label>
+                    </div>
+
+                    <h5 class="section-title mt-4">Hydrology and Demand</h5>
+                    <div class="row g-3">
+                        {% for field, label in [
+                            ('Reservoir_Level_pct', 'Reservoir Level (%)'),
+                            ('Groundwater_Level_m', 'Groundwater Level (m)'),
+                            ('River_Flow_m3s', 'River Flow (m3/s)'),
+                            ('Population', 'Population'),
+                            ('Water_Consumption_MLD', 'Water Consumption (MLD)'),
+                            ('Reservoir_Inflow_MLD', 'Reservoir Inflow (MLD)'),
+                            ('Reservoir_Outflow_MLD', 'Reservoir Outflow (MLD)'),
+                            ('Water_Availability_MLD', 'Current Water Availability (MLD)')
+                        ] %}
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <label class="form-label" for="{{ field }}">{{ label }}</label>
+                            <input class="form-control live-number" type="number" step="any" id="{{ field }}" name="{{ field }}"
+                                value="{{ values[field] if manual_override and values else '' }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <h5 class="section-title mt-4">Water Quality Lab Inputs</h5>
+                    <div class="row g-3">
+                        {% for field, label in [
+                            ('pH', 'pH'),
+                            ('Turbidity_NTU', 'Turbidity (NTU)'),
+                            ('Dissolved_Oxygen_mgL', 'Dissolved Oxygen (mg/L)'),
+                            ('TDS_mgL', 'TDS (mg/L)'),
+                            ('BOD_mgL', 'BOD (mg/L)'),
+                            ('Nitrate_mgL', 'Nitrate (mg/L)')
+                        ] %}
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <label class="form-label" for="{{ field }}">{{ label }}</label>
+                            <input class="form-control live-number" type="number" step="any" id="{{ field }}" name="{{ field }}"
+                                value="{{ values[field] if manual_override and values else '' }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-4 d-flex gap-3 flex-wrap">
+                        <button type="submit" class="btn btn-primary btn-live px-4">
+                            <i class="fas fa-cloud-arrow-down me-2"></i>Fetch Live Data and Predict
+                        </button>
+                        <a href="/home2" class="btn btn-outline-primary btn-live px-4">
+                            <i class="fas fa-water me-2"></i>Manual Forecast
+                        </a>
+                    </div>
+                </form>
+            </section>
+
+            {% if weather %}
+            <section class="panel mb-4">
+                <h3 class="section-title"><i class="fas fa-cloud-sun-rain me-2"></i>Open-Meteo Feed</h3>
+                <div class="row g-3">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="metric">
+                            <small>Rainfall, past 24 hours</small>
+                            <strong>{{ weather.Rainfall_mm }} mm</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="metric">
+                            <small>Temperature</small>
+                            <strong>{{ weather.Temperature_C }} &deg;C</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="metric">
+                            <small>Humidity</small>
+                            <strong>{{ weather.Humidity_pct }}%</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="metric">
+                            <small>Season</small>
+                            <strong>{{ weather.Season }}</strong>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted">
+                    Source: {{ weather.source }} | Observed at: {{ weather.observed_at }}
+                    | Current hour: {{ weather.Current_Precipitation_mm }} mm
+                    {% if location %}| Coordinates: {{ location.latitude }}, {{ location.longitude }}{% endif %}
+                    {% if weather.latitude %}| Station: {{ weather.latitude }}, {{ weather.longitude }}{% endif %}
+                </p>
+            </section>
+            {% endif %}
+
+            {% if values %}
+            <section class="panel mb-4">
+                <h3 class="section-title"><i class="fas fa-table me-2"></i>Inputs Used For {{ values.District }}</h3>
+                <p class="text-muted mb-2">{{ availability_source.note }}</p>
+                <p class="text-muted">{{ quality_source.note }}</p>
+                <div class="row g-3">
+                    {% for field, label in [
+                        ('Temperature_C', 'Temperature (°C)'),
+                        ('Rainfall_mm', 'Rainfall, 24h (mm)'),
+                        ('Humidity_pct', 'Humidity (%)'),
+                        ('Reservoir_Level_pct', 'Reservoir Level (%)'),
+                        ('Groundwater_Level_m', 'Groundwater (m)'),
+                        ('River_Flow_m3s', 'River Flow (m3/s)'),
+                        ('Population', 'Population'),
+                        ('Water_Consumption_MLD', 'Consumption (MLD)'),
+                        ('Reservoir_Inflow_MLD', 'Inflow (MLD)'),
+                        ('Reservoir_Outflow_MLD', 'Outflow (MLD)'),
+                        ('Water_Availability_MLD', 'Availability (MLD)'),
+                        ('pH', 'pH'),
+                        ('Turbidity_NTU', 'Turbidity (NTU)'),
+                        ('Dissolved_Oxygen_mgL', 'Dissolved Oxygen'),
+                        ('TDS_mgL', 'TDS (mg/L)'),
+                        ('BOD_mgL', 'BOD (mg/L)'),
+                        ('Nitrate_mgL', 'Nitrate (mg/L)')
+                    ] %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="metric">
+                            <small>{{ label }}</small>
+                            <strong>{{ values[field] }}</strong>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if quality_result or availability_result or quality_error or availability_error %}
+            <section class="row g-4">
+                <div class="col-lg-6">
+                    <div class="result-tile">
+                        <h3 class="section-title">Water Quality Prediction</h3>
+                        {% if quality_result %}
+                        <div class="result-value">{{ quality_result.prediction }}</div>
+                        <p class="mb-3">Confidence: {{ quality_result.confidence }}%</p>
+                        <p class="mb-1">Pollution Index: <strong>{{ quality_result.pollution_index }}</strong></p>
+                        <p>Water Quality Score: <strong>{{ quality_result.water_quality_score }}</strong></p>
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle">
+                                <tbody>
+                                    {% for label, probability in quality_result.probabilities.items() %}
+                                    <tr>
+                                        <td>{{ label }}</td>
+                                        <td class="text-end">{{ probability }}%</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">{{ quality_error }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="result-tile">
+                        <h3 class="section-title">7-Day Availability Forecast</h3>
+                        {% if availability_result %}
+                        <div class="result-value">{{ availability_result.prediction }}</div>
+                        <p class="mb-3">Category: <strong>{{ availability_result.prediction_class }}</strong></p>
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th class="text-end">Forecast</th>
+                                        <th class="text-end">Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in availability_result.forecast_rows %}
+                                    <tr>
+                                        <td>{{ row.Date }}</td>
+                                        <td class="text-end">{{ row.Predicted_Value }} MLD</td>
+                                        <td class="text-end">{{ row.Predicted_Class }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">{{ availability_error }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            <div class="mt-4 mb-2 text-center d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/live" class="btn btn-primary btn-live px-5 py-3 shadow rounded-pill">
+                    <i class="fas fa-rotate-right me-2"></i>New Live Prediction
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        const districtMap = {{ district_map | tojson }};
+        const selectedState = {{ selected_state | default('', true) | tojson }};
+        const selectedDistrict = {{ selected_district | default('', true) | tojson }};
+        const stateSelect = document.getElementById('State');
+        const districtSelect = document.getElementById('District');
+
+        function fillDistricts() {
+            const state = stateSelect.value;
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+            if (!districtMap[state]) {
+                return;
+            }
+            Object.keys(districtMap[state]).forEach((district) => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                if (district === selectedDistrict) {
+                    option.selected = true;
+                }
+                districtSelect.appendChild(option);
+            });
+        }
+
+        if (selectedState) {
+            stateSelect.value = selectedState;
+        }
+        function clearTypedInputs() {
+            document.querySelectorAll('.live-number').forEach((input) => {
+                input.value = '';
+            });
+            const manual = document.getElementById('manual_override');
+            if (manual) {
+                manual.checked = false;
+            }
+        }
+
+        fillDistricts();
+        stateSelect.addEventListener('change', () => {
+            fillDistricts();
+            clearTypedInputs();
+        });
+        districtSelect.addEventListener('change', clearTypedInputs);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

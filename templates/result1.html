@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WaterPulse - AI-Based Water Intelligence System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Open Sans', Arial, sans-serif;
+            color: #1E293B;
+            background:
+                radial-gradient(circle at top left,
+                    rgba(14, 165, 233, 0.15),
+                    transparent 35%),
+                radial-gradient(circle at bottom right,
+                    rgba(255, 107, 53, 0.12),
+                    transparent 40%),
+                linear-gradient(135deg,
+                    #FAF7F2,
+                    #F5EFE6,
+                    #FAF8F2);
+        }
+
+        .result-section {
+            padding: 65px 20px;
+        }
+
+        .result-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .page-heading {
+            max-width: 850px;
+            margin: 0 auto 35px;
+            text-align: center;
+        }
+
+        .heading-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 78px;
+            height: 78px;
+            margin-bottom: 18px;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 34px;
+            background: linear-gradient(135deg,
+                    #0EA5E9,
+                    #FF6B35);
+            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.35);
+        }
+
+        .page-heading h1 {
+            margin-bottom: 12px;
+            color: #0369A1;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .page-heading p {
+            margin: 0;
+            color: #475569;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .result-card {
+            padding: 40px;
+            border: 1px solid #EDE8DE;
+            border-top: 6px solid #0EA5E9;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 18px 50px rgba(14, 165, 233, 0.08);
+        }
+
+        .prediction-panel {
+            height: 100%;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg,
+                    #0284C7,
+                    #0EA5E9);
+            color: #ffffff;
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.28);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prediction-panel i {
+            margin-bottom: 16px;
+            font-size: 55px;
+        }
+
+        .prediction-panel h4 {
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .prediction-value {
+            margin: 12px 0;
+            color: #ffffff;
+            font-size: 42px;
+            font-weight: 900;
+            word-break: break-word;
+        }
+
+        .confidence-box {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.22);
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .chart-card {
+            height: 100%;
+            padding: 25px;
+            border: 1px solid #EDE8DE;
+            border-radius: 20px;
+            background: #FCFAF6;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.06);
+        }
+
+        .chart-card h4 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            height: 310px;
+            margin: auto;
+        }
+
+        .information-card {
+            margin-top: 30px;
+            padding: 24px;
+            border-left: 6px solid #0EA5E9;
+            border: 1px solid #E0F2FE;
+            border-left-width: 6px;
+            border-radius: 15px;
+            background: #F0F9FF;
+        }
+
+        .information-card h4 {
+            margin-bottom: 10px;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .information-card p {
+            margin: 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .probability-section {
+            margin-top: 32px;
+            padding: 28px;
+            border-radius: 18px;
+            background: #FCFAF6;
+            border: 1px solid #EDE8DE;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.06);
+        }
+
+        .section-heading {
+            margin-bottom: 22px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .probability-row {
+            margin-bottom: 18px;
+        }
+
+        .probability-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .probability-title {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 7px;
+            color: #1E293B;
+            font-weight: 700;
+        }
+
+        .progress {
+            height: 13px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #E0F2FE;
+        }
+
+        .progress-bar {
+            border-radius: 20px;
+            background: linear-gradient(90deg,
+                    #0EA5E9,
+                    #FF6B35);
+        }
+
+        .lime-card {
+            margin-top: 35px;
+            padding: 30px;
+            border-left: 6px solid #FF6B35;
+            border: 1px solid #EDE8DE;
+            border-left-width: 6px;
+            border-radius: 20px;
+            background: #FCFAF6;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.07);
+        }
+
+        .lime-card h3 {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #0369A1;
+            font-weight: 800;
+        }
+
+        .lime-description {
+            margin-bottom: 22px;
+            text-align: center;
+            color: #475569;
+        }
+
+        .lime-container {
+            width: 100%;
+            height: 600px;
+            overflow: auto;
+            border: 1px solid #EDE8DE;
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .lime-frame {
+            width: 100%;
+            min-width: 1050px;
+            height: 100%;
+            border: none;
+        }
+
+        .lime-plot-container {
+            width: 100%;
+            min-height: 650px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border: 1px solid #EDE8DE;
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .lime-plot-container>div {
+            min-width: 1000px;
+        }
+
+        .lime-container::-webkit-scrollbar,
+        .lime-plot-container::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .lime-container::-webkit-scrollbar-track,
+        .lime-plot-container::-webkit-scrollbar-track {
+            background: #FAF7F2;
+            border-radius: 10px;
+        }
+
+        .lime-container::-webkit-scrollbar-thumb,
+        .lime-plot-container::-webkit-scrollbar-thumb {
+            background: #0EA5E9;
+            border-radius: 10px;
+        }
+
+        .error-box {
+            padding: 18px;
+            border-left: 5px solid #dc3545;
+            border-radius: 12px;
+            color: #842029;
+            background: #f8d7da;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 35px;
+        }
+
+        .predict-again-btn,
+        .home-btn {
+            min-width: 190px;
+            padding: 13px 28px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+
+        .predict-again-btn {
+            color: #ffffff;
+            background: linear-gradient(135deg,
+                    #0EA5E9,
+                    #FF6B35);
+        }
+
+        .predict-again-btn:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg,
+                    #FF6B35,
+                    #0EA5E9);
+        }
+
+        .home-btn {
+            color: #ffffff;
+            background: linear-gradient(135deg,
+                    #1E293B,
+                    #334155);
+        }
+
+        .home-btn:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            background: linear-gradient(135deg,
+                    #0F172A,
+                    #1E293B);
+        }
+
+        @media (max-width: 768px) {
+            .result-section {
+                padding: 40px 10px;
+            }
+
+            .result-card {
+                padding: 24px 14px;
+            }
+
+            .page-heading h1 {
+                font-size: 31px;
+            }
+
+            .prediction-value {
+                font-size: 32px;
+            }
+
+            .lime-card {
+                padding: 22px 10px;
+            }
+
+            .lime-container {
+                height: 520px;
+            }
+
+            .action-buttons a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>WaterPulse</h1>
+                <!-- <img src="../static/img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home1" class="dropdown-item"><i class="fas fa-flask me-2"></i>Predict Quality</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/home2" class="dropdown-item"><i class="fas fa-water me-2"></i>Availability Forecasting</a>
+                            <a href="/live" class="dropdown-item"><i class="fas fa-satellite-dish me-2"></i>Live</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-chart-line me-2"></i>Graphs</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/graphs1" class="dropdown-item"><i class="fas fa-chart-pie me-2"></i>Prediction</a>
+                            <a href="/graphs2" class="dropdown-item"><i class="fas fa-chart-area me-2"></i>Forecasting</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-book me-2"></i>NoteBook</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="/notes1" class="dropdown-item"><i class="fas fa-file-alt me-2"></i>Water Availability Forecasting</a>
+                            <a href="/notes2" class="dropdown-item"><i class="fas fa-file-code me-2"></i>Water Quality Prediction</a>
+                        </div>
+                    </div>
+                    <a href="/logout" class="nav-item nav-link"><i class="fas fa-sign-out-alt me-2"></i>LogOut</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Start -->
+        <div class="carousel-header">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="../static/img/hero_result1.jpg" class="img-fluid w-100"
+                            style="height: 500px; object-fit:cover;" alt="Water Quality Prediction Results">
+                        <div class="carousel-caption-1" style="display: flex; align-items: center; justify-content: center;">
+                            <div class="carousel-caption-1-content text-center px-3" style="max-width: 900px; padding-right: 0; margin: 0 auto;">
+                                
+
+                                <h1 class="display-2 text-capitalize text-white mb-4 text-center">
+                                    RESULTS
+                                </h1>
+
+                                <p class="mb-5 fs-5 text-white text-center mx-auto" style="max-width: 800px;">
+                                    Support sustainable water management, efficient resource planning,
+                                    and informed decision-making for governments, industries, and communities.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Result Start -->
+    <section class="result-section">
+
+        <div class="result-container">
+
+            <div class="page-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-droplet"></i>
+                </div>
+
+                <h1>
+                    Water Quality Prediction Result
+                </h1>
+
+                <p>
+                    The trained machine-learning model analysed the submitted
+                    environmental and water-quality parameters.
+                </p>
+
+            </div>
+
+            <div class="result-card">
+
+                {% if error %}
+
+                <div class="error-box">
+                    <i class="fas fa-circle-exclamation me-2"></i>
+                    {{ error }}
+                </div>
+
+                {% else %}
+
+                <div class="row g-4">
+
+                    <div class="col-lg-6">
+
+                        <div class="prediction-panel">
+
+                            <i class="fas fa-water"></i>
+
+                            <h4>
+                                Predicted Water Quality
+                            </h4>
+
+                            <div class="prediction-value">
+                                {{ prediction }}
+                            </div>
+
+                            {% if confidence is defined and confidence is not none %}
+                            <div class="confidence-box">
+                                Confidence:
+                                {{ "%.2f"|format(confidence|float) }}%
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="chart-card">
+
+                            <h4>Prediction Comparison</h4>
+
+                            <div class="chart-wrapper">
+                                <canvas id="predictionChart"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row g-4 mt-3">
+                    <div class="col-md-6">
+                        <div class="chart-card d-flex flex-column align-items-center justify-content-center p-4" style="min-height: 150px;">
+                            <h5 style="color: #475569; font-weight: 700; font-size: 15px;">Calculated Pollution Index</h5>
+                            <h2 style="color: #FF6B35; font-weight: 900; font-size: 32px; margin-top: 10px;">{{ "%.4f"|format(pollution_index|float) }}</h2>
+                            <small style="color: #64748B; font-size: 12px; margin-top: 5px;">(BOD + Nitrate + Turbidity)</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-card d-flex flex-column align-items-center justify-content-center p-4" style="min-height: 150px;">
+                            <h5 style="color: #475569; font-weight: 700; font-size: 15px;">Calculated Water Quality Score</h5>
+                            <h2 style="color: #0EA5E9; font-weight: 900; font-size: 32px; margin-top: 10px;">{{ "%.4f"|format(water_quality_score|float) }}</h2>
+                            <small style="color: #64748B; font-size: 12px; margin-top: 5px;">(DO + pH − BOD − Turbidity)</small>
+                        </div>
+                    </div>
+                </div>
+
+                {% if indices_breakdown %}
+                <div class="probability-section mt-4">
+                    <h3 class="section-heading mb-4">
+                        <i class="fas fa-calculator me-2"></i> Calculated Indices Breakdown
+                    </h3>
+                    <p class="text-center text-muted mb-4" style="font-size: 14px;">
+                        Analysis of the overall pollution index and water quality score relative to standard thresholds.
+                    </p>
+                    <div class="row g-4">
+                        {% for item in indices_breakdown %}
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded h-100 bg-white shadow-sm" style="border-color: #EDE8DE !important;">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-dark">
+                                        <i class="fas {{ item.icon }} text-primary me-2"></i>{{ item.name }}
+                                    </span>
+                                    <span class="badge {% if item.badge_class == 'success' %}bg-success{% elif item.badge_class == 'primary' %}bg-primary{% elif item.badge_class == 'warning' %}bg-warning text-dark{% else %}bg-danger{% endif %}">{{ item.level }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted small">Current Value: <strong>{{ item.value }}</strong></span>
+                                </div>
+                                <div class="progress my-2" style="height: 12px;">
+                                    <div class="progress-bar {% if item.badge_class == 'success' %}bg-success{% elif item.badge_class == 'primary' %}bg-primary{% elif item.badge_class == 'warning' %}bg-warning{% else %}bg-danger{% endif %}" role="progressbar" style="width: {{ item.progress_pct }}%" aria-valuenow="{{ item.progress_pct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="text-muted small mb-2" style="font-size: 11px;">
+                                    <strong>Thresholds:</strong> {{ item.ranges }}
+                                </div>
+                                <p class="mb-0 text-secondary" style="font-size: 13px; line-height: 1.4;">
+                                    {{ item.description }}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="information-card">
+
+                    <h4>
+                        <i class="fas fa-circle-info me-2"></i>
+                        Result Interpretation
+                    </h4>
+
+                    {% if prediction|string|lower == "excellent" %}
+
+                    <p>
+                        The model indicates excellent water quality. The submitted
+                        measurements suggest favourable physical and chemical conditions.
+                    </p>
+
+                    {% elif prediction|string|lower == "good" %}
+
+                    <p>
+                        The model indicates good water quality. Most parameters are
+                        within an acceptable condition, though regular monitoring is recommended.
+                    </p>
+
+                    {% elif prediction|string|lower == "moderate" %}
+
+                    <p>
+                        The model indicates moderate water quality. Some parameters may
+                        require attention before the water is used for sensitive purposes.
+                    </p>
+
+                    {% elif prediction|string|lower == "poor" %}
+
+                    <p>
+                        The model indicates poor water quality. Further laboratory
+                        examination and suitable treatment are recommended.
+                    </p>
+
+                    {% else %}
+
+                    <p>
+                        The predicted class was generated using the trained water-quality
+                        classification model and the submitted environmental parameters.
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+                
+
+
+                <!-- Standard LIME explanation -->
+                {% if lime_html %}
+
+                <div class="lime-card">
+
+                    <h3>
+                        <i class="fas fa-magnifying-glass-chart me-2"></i>
+                        LIME Local Explanation
+                    </h3>
+
+                    <p class="lime-description">
+                        This detailed local explanation shows how individual
+                        input features influenced the predicted water-quality class.
+                    </p>
+
+                    <div class="lime-container">
+
+                        <iframe class="lime-frame" srcdoc="{{ lime_html|e }}" title="LIME Local Explanation">
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- Plotly LIME contribution chart -->
+                {% if lime_plot %}
+
+                <div class="lime-card">
+
+                    <h3>
+                        <i class="fas fa-chart-bar me-2"></i>
+                        LIME Feature Contribution Graph
+                    </h3>
+
+                    <p class="lime-description">
+                        Positive bars support the predicted class, while negative
+                        bars reduce support for the predicted class.
+                    </p>
+
+                    <div class="lime-plot-container">
+                        {{ lime_plot|safe }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if lime_error %}
+
+                <div class="error-box mt-4">
+                    <i class="fas fa-triangle-exclamation me-2"></i>
+                    LIME explanation could not be generated:
+                    {{ lime_error }}
+                </div>
+
+                {% endif %}
+
+
+                <!-- Recommendations & Suggestions Section -->
+                {% if recommendations or suggestions %}
+                <div class="lime-card">
+
+                    <h3>
+                        <i class="fas fa-clipboard-list me-2"></i>
+                        Actionable Water Quality Recommendations
+                    </h3>
+
+                    <p class="lime-description">
+                        Expert-guided recommendations and mitigation suggestions based on the prediction analysis.
+                        {% if recommendations_source %}
+                        <span class="badge bg-info text-dark ms-1">Source: {{ recommendations_source }}</span>
+                        {% endif %}
+                    </p>
+
+                    {% if recommendations_warning %}
+                    <div class="alert alert-warning mb-4" role="alert">
+                        <i class="fas fa-triangle-exclamation me-2"></i>
+                        {{ recommendations_warning }}
+                    </div>
+                    {% endif %}
+
+                    <div class="row g-4 mt-2">
+                        <!-- Key Recommendations -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded h-100 bg-white shadow-sm" style="border-left: 5px solid #0EA5E9 !important; border: 1px solid #EDE8DE;">
+                                <h5 class="mb-3" style="color: #0369A1; font-weight: 800;">
+                                    <i class="fas fa-hand-holding-droplet me-2"></i>Key Recommendations
+                                </h5>
+                                <ul class="list-group list-group-flush">
+                                    {% for rec in recommendations %}
+                                    <li class="list-group-item bg-transparent px-0 py-2 text-secondary" style="font-size: 14px; line-height: 1.5; border: none;">
+                                        <i class="fas fa-circle-check text-success me-2"></i>{{ rec }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Suggestions for Improvement -->
+                        <div class="col-md-6">
+                            <div class="p-3 border rounded h-100 bg-white shadow-sm" style="border-left: 5px solid #FF6B35 !important; border: 1px solid #EDE8DE;">
+                                <h5 class="mb-3" style="color: #FF6B35; font-weight: 800;">
+                                    <i class="fas fa-lightbulb me-2"></i>Proactive Suggestions
+                                </h5>
+                                <ul class="list-group list-group-flush">
+                                    {% for sug in suggestions %}
+                                    <li class="list-group-item bg-transparent px-0 py-2 text-secondary" style="font-size: 14px; line-height: 1.5; border: none;">
+                                        <i class="fas fa-circle-chevron-right text-info me-2"></i>{{ sug }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% endif %}
+
+                <!-- Suitable Crops for Cultivation Section -->
+                {% if crops %}
+                <div class="lime-card mt-4">
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                        <h3 class="mb-0">
+                            <i class="fas fa-seedling me-2 text-success"></i>
+                            Suitable Crops for Cultivation
+                        </h3>
+                        {% if recommendations_source %}
+                        <span class="badge bg-success bg-opacity-75 text-white px-3 py-2 rounded-pill fs-6">
+                            <i class="fas fa-robot me-1"></i> LLM Generated ({{ recommendations_source }})
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <p class="lime-description">
+                        Based on the predicted water quality (<strong>{{ prediction }}</strong>) and environmental parameters (pH, TDS, DO, BOD, Nitrate, Turbidity), the LLM model recommends cultivating the following crops for optimal agricultural yield:
+                    </p>
+
+                    <div class="row g-4 mt-1">
+                        {% for crop in crops %}
+                        <div class="col-md-6 col-lg-6">
+                            <div class="p-3 border rounded h-100 bg-white shadow-sm d-flex flex-column justify-content-between" style="border-left: 5px solid #10B981 !important; border: 1px solid #EDE8DE;">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h5 class="mb-1 text-dark fw-bold">
+                                                <i class="fas fa-wheat-awn text-success me-2"></i>{{ crop.name }}
+                                            </h5>
+                                            {% if crop.category %}
+                                            <span class="badge bg-light text-secondary border px-2 py-1 small">{{ crop.category }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <span class="badge {% if crop.badge_class == 'success' %}bg-success{% elif crop.badge_class == 'primary' %}bg-primary{% elif crop.badge_class == 'warning' %}bg-warning text-dark{% elif crop.badge_class == 'secondary' %}bg-secondary{% else %}bg-info text-dark{% endif %} px-2 py-1">
+                                            {{ crop.suitability }}
+                                        </span>
+                                    </div>
+                                    <p class="text-secondary mt-2 mb-0" style="font-size: 13.5px; line-height: 1.55;">
+                                        {{ crop.reason }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                {% endif %}
+
+
+                <div class="action-buttons">
+
+                    <a href="/home1" class="predict-again-btn">
+                        <i class="fas fa-rotate-right me-2"></i>
+                        Predict Again
+                    </a>
+
+                    <a href="/home2" class="home-btn">
+                        <i class="fas fa-water me-2"></i>
+                        Go to Forecasting
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Result End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="#" class="border-bottom text-white"><i
+                                class="fas fa-copyright text-light me-2"></i>WaterPulse</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+
+                    Designed By <a class="border-bottom text-white" href="#">AI-Based Water Intelligence System</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/lib/wow/wow.min.js"></script>
+    <script src="../static/lib/easing/easing.min.js"></script>
+    <script src="../static/lib/waypoints/waypoints.min.js"></script>
+    <script src="../static/lib/counterup/counterup.min.js"></script>
+    <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="../static/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const ctx = document.getElementById("predictionChart");
+
+                if (!ctx) {
+                    console.log("Canvas not found");
+                    return;
+                }
+
+                {% if probabilities %}
+
+                const labels = {{ probabilities.keys() | list | tojson
+            }};
+            const values = {{ probabilities.values() | list | tojson }};
+
+            console.log(labels);
+            console.log(values);
+
+            new Chart(ctx, {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [{
+                        data: values,
+
+                        backgroundColor: [
+                            "#0EA5E9",
+                            "#FF6B35",
+                            "#F59E0B",
+                            "#EF4444"
+                        ],
+
+                        borderWidth: 2,
+                        borderColor: "#FCFAF6"
+                    }]
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            });
+
+            {% endif %}
+
+});
+        </script>
+
+        {% endif %}
+</body>
+
+</html>

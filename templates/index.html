@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WaterPulse - AI-Based Water Intelligence System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+
+    <style>
+        .navbar-light .navbar-nav .nav-link {
+            padding: 26px 0;
+        }
+        @media (max-width: 991.98px) {
+            .navbar-light .navbar-nav .nav-link,
+            .sticky-top.navbar-light .navbar-nav .nav-link {
+                padding: 8px 0;
+            }
+        }
+        @media (max-width: 992px) {
+            .carousel .carousel-inner .carousel-item,
+            .carousel .carousel-inner .carousel-item img {
+                height: 525px !important;
+            }
+        }
+        .faq .accordion-item {
+            border: 1px solid #EDE8DE;
+            margin-bottom: 1rem;
+            border-radius: 10px !important;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(30, 53, 47, 0.04);
+            transition: all 0.3s ease;
+        }
+        .faq .accordion-item:hover {
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.10);
+            border-color: #0EA5E9;
+        }
+        .faq .accordion-button {
+            padding: 18px 24px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1E352F;
+            background-color: #FCFAF6;
+            border-radius: 10px !important;
+        }
+        .faq .accordion-button:not(.collapsed) {
+            color: var(--bs-primary);
+            background-color: #F7F5EE;
+            border-left: 4px solid var(--bs-secondary);
+            box-shadow: none;
+        }
+        .faq .accordion-button:focus {
+            box-shadow: none;
+        }
+        .faq .accordion-body {
+            padding: 20px 24px;
+            color: #556E65;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            background-color: #FFFDF9;
+            border-top: 1px solid #EDE8DE;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>WaterPulse</h1>
+                <!-- <img src="../static/img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="/" class="nav-item nav-link active"><i class="fas fa-home me-2"></i>Home</a>
+                    <a href="/login" class="nav-item nav-link"><i class="fas fa-sign-in-alt me-2"></i>SignIn</a>
+                    <a href="/logon" class="nav-item nav-link"><i class="fas fa-user-plus me-2"></i>Register</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Start -->
+        <div class="carousel-header">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active" style="min-height: 850px; position: relative;">
+                        <img src="../static/img/hero_index.jpg" class="img-fluid w-100"
+                            style="height: 850px; object-fit: cover;" alt="WaterPulse Hero Banner">
+                        <div class="carousel-caption-1" style="min-height: 850px; padding-top: 140px; padding-bottom: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(8, 18, 36, 0.82) 0%, rgba(8, 18, 36, 0.45) 50%, rgba(8, 18, 36, 0.85) 100%);">
+                            <div class="carousel-caption-1-content text-center px-3" style="max-width: 900px; padding-right: 0; margin: 0 auto;">
+
+                                <h4 class="text-white text-uppercase fw-bold mb-3" style="letter-spacing: 1px;">
+                                    WaterPulse
+                                </h4>
+
+                                <h1 class="display-3 fw-bold text-capitalize text-white mb-4 text-center" style="line-height: 1.2;">
+                                    AI-Based Water Intelligence System
+                                </h1>
+
+                                <p class="mb-5 fs-5 text-white text-opacity-90 text-center mx-auto" style="max-width: 800px;">
+                                    Harness the power of Artificial Intelligence to monitor, predict, and optimize water
+                                    resources.
+                                    WaterPulse provides intelligent insights into rainfall, reservoir levels, river flow,
+                                    water quality,
+                                    and water availability to support sustainable water resource management and informed
+                                    decision-making.
+                                </p>
+
+                                <div class="d-inline-flex justify-content-center flex-wrap gap-3">
+                                    <a href="#about" class="btn btn-secondary py-3 px-5 rounded-pill shadow">
+                                        More
+                                    </a>
+                                    <a href="/logon" class="btn btn-primary py-3 px-5 rounded-pill shadow">
+                                        <i class="fa fa-arrow-right me-2"></i>Get Started
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- About Start -->
+    <div class="container-fluid about overflow-hidden py-5" id="about">
+        <div class="container py-5">
+            <div class="row g-5">
+
+                <!-- Image -->
+                <div class="col-xl-6">
+                    <img class="img-thumbnail p-3" src="../static/img/about.jpg" alt=" Project">
+                </div>
+
+
+                <!-- Content -->
+                <div class="col-xl-6">
+                    <div class="about-item">
+
+                        <h4 class="text-primary text-uppercase">
+                            About AquaMind
+                        </h4>
+
+                        <h1 class="display-4 mb-3">
+                            AI-Based Water Intelligence System
+                        </h1>
+
+                        <p class="mb-4">
+                            AquaMind is an intelligent water resource management platform that
+                            leverages Artificial Intelligence and Machine Learning to monitor,
+                            analyze, and predict water availability. By utilizing environmental
+                            and hydrological data such as rainfall, temperature, humidity,
+                            reservoir levels, river flow, and water quality, the system enables
+                            informed decision-making for sustainable water resource planning.
+                        </p>
+
+                        <!-- Feature 1 -->
+                        <div class="bg-light rounded p-4 mb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex">
+
+                                        <div class="pe-4">
+                                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                                style="width:80px;height:80px;">
+                                                <i class="fas fa-brain text-white fa-2x"></i>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mb-3">
+                                                AI-Powered Prediction
+                                            </h4>
+
+                                            <p class="mb-0">
+                                                Predict water availability using Machine Learning
+                                                models trained on rainfall, climate, reservoir,
+                                                river flow, and water quality data.
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="bg-light rounded p-4 mb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex">
+
+                                        <div class="pe-4">
+                                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                                style="width:80px;height:80px;">
+                                                <i class="fas fa-water text-white fa-2x"></i>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mb-3">
+                                                Smart Water Management
+                                            </h4>
+
+                                            <p class="mb-0">
+                                                Gain real-time insights into water resources,
+                                                detect potential shortages, and support sustainable
+                                                planning for agriculture, industries, and communities.
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Feature 3 -->
+                        <div class="bg-light rounded p-4 mb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex">
+
+                                        <div class="pe-4">
+                                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                                style="width:80px;height:80px;">
+                                                <i class="fas fa-chart-line text-white fa-2x"></i>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="mb-3">
+                                                Real-Time Analytics
+                                            </h4>
+
+                                            <p class="mb-0">
+                                                Visualize trends in rainfall, reservoir levels, river flow,
+                                                water quality, and consumption through interactive graphs and
+                                                AI-driven analytics to support effective water resource planning.
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Feature Start -->
+    <div class="container-fluid feature bg-light py-5">
+        <div class="container py-5">
+
+            <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+                <h4 class="text-uppercase text-primary">Our Features</h4>
+                <h1 class="display-4 text-capitalize mb-3">
+                    Intelligent Water Resource Management
+                </h1>
+                <p class="text-muted">
+                    AquaMind combines Artificial Intelligence and environmental data
+                    to provide accurate predictions and smart insights for sustainable
+                    water resource planning.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Feature 1 -->
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="feature-item p-4 text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-brain text-white fa-3x"></i>
+                        </div>
+
+                        <h4 class="mb-3">AI Prediction</h4>
+
+                        <p>
+                            Predict water availability using Machine Learning models
+                            trained on historical and environmental data.
+                        </p>
+
+                        <a href="#" class="btn text-primary">
+                            Learn More <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="feature-item p-4 text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-cloud-rain text-white fa-3x"></i>
+                        </div>
+
+                        <h4 class="mb-3">Climate Analysis</h4>
+
+                        <p>
+                            Analyze rainfall, temperature, humidity, and seasonal
+                            variations to improve prediction accuracy.
+                        </p>
+
+                        <a href="#" class="btn text-primary">
+                            Learn More <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="feature-item p-4 text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-water text-white fa-3x"></i>
+                        </div>
+
+                        <h4 class="mb-3">Water Quality Monitoring</h4>
+
+                        <p>
+                            Monitor pH, turbidity, dissolved oxygen, reservoir levels,
+                            and river flow to assess water conditions.
+                        </p>
+
+                        <a href="#" class="btn text-primary">
+                            Learn More <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="feature-item p-4 text-center">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-chart-line text-white fa-3x"></i>
+                        </div>
+
+                        <h4 class="mb-3">Decision Support</h4>
+
+                        <p>
+                            Generate intelligent insights to help governments,
+                            farmers, and organizations manage water resources effectively.
+                        </p>
+
+                        <a href="#" class="btn text-primary">
+                            Learn More <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Feature End -->
+
+    <!-- FAQ Start -->
+    <div class="container-fluid faq py-5" id="faq">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+                <h4 class="text-uppercase text-primary">Frequently Asked Questions</h4>
+                <h1 class="display-4 text-capitalize mb-3">Questions & Answers</h1>
+                <p class="text-muted">
+                    Explore common questions and answers about how WaterPulse uses Artificial Intelligence and environmental data to monitor and predict water resources.
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="accordion" id="accordionFAQ">
+
+                        <!-- FAQ 1 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fas fa-question-circle text-primary me-3"></i>What is WaterPulse and what does it do?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body">
+                                    WaterPulse is an AI-powered water intelligence platform designed to monitor, analyze, and forecast water resources. By combining environmental data—such as rainfall, temperature, humidity, reservoir levels, river flow, and water quality metrics—it helps users make informed decisions for sustainable water management.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 2 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fas fa-brain text-primary me-3"></i>How does the AI predict water availability?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body">
+                                    The system uses trained Machine Learning models (such as Gradient Boosting, Random Forests, and time-series forecasters) trained on historical climate and hydrological data to predict reservoir capacities, rainfall runoff, and overall water availability.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 3 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fas fa-water text-primary me-3"></i>What water quality parameters are analyzed?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body">
+                                    WaterPulse evaluates critical quality metrics including pH levels, dissolved oxygen (DO), turbidity, conductivity, temperature, total dissolved solids (TDS), and contamination markers to ensure safe water utilization for communities, agriculture, and industries.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 4 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <i class="fas fa-users text-primary me-3"></i>Who can benefit from using WaterPulse?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body">
+                                    WaterPulse is built for municipal water supply boards, agricultural cooperatives, environmental protection agencies, researchers, and industries requiring reliable water forecasts and proactive risk mitigation tools.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ 5 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    <i class="fas fa-sign-in-alt text-primary me-3"></i>How do I start using the prediction models?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body">
+                                    Simply click on the "Register" or "Get Started" buttons to create an account. Once signed in, you can access the interactive prediction module, input your local environmental parameters, and receive instant forecasts and analytical graphs.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FAQ End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="#" class="border-bottom text-white"><i
+                                class="fas fa-copyright text-light me-2"></i>WaterPulse</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+
+                    Designed By <a class="border-bottom text-white" href="#">AI-Based Water Intelligence System</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/lib/wow/wow.min.js"></script>
+    <script src="../static/lib/easing/easing.min.js"></script>
+    <script src="../static/lib/waypoints/waypoints.min.js"></script>
+    <script src="../static/lib/counterup/counterup.min.js"></script>
+    <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>
